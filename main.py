@@ -41,7 +41,8 @@ def index():
         text = msg['message'].get('text', '')
         if text == '/start':
             sendMessage(chat_id, "Hi, Welcome to Movie Finder")
-        #.........
+        return Response('ok', status=200)
+        #........
 
 
 def write_json(data, filename='.............'):
