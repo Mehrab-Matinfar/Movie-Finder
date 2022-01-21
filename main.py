@@ -40,18 +40,32 @@ def index():
         chat_id = get_chat_id(msg)
         text = msg['message'].get('text', '')
         if text == '/start':
-            sendMessage(chat_id, "Hi, Welcome to Movie Finder")
+            sendMessage(chat_id, "Hi, Welcome to Movie Finder!")
+            sendMessage(chat_id, '/list_of_favorit_movies')
+            sendMessage(chat_id, '/search_new_movie')
+        # elif text == new or ...... :
+        # .............
+        elif text == '/list_of_favorit_movies':
+            favorit_movies = read_json()
+            username = msg['message']['from']['username']
+            if username not in favorit_movies.keys():
+                sendMessage(chat_id, 'No movie has been selected so far')
+            else:
+                for movie in favorit_movies[username]:
+                    sendMessage(chat_id, movie)
+
         return Response('ok', status=200)
-        #........
 
 
-def write_json(data, filename='.............'):
-    pass
-    #..........
+def write_json(data, filename='favorite_movies.json'):
+    with open(filename, 'w') as target:
+        json.dump(data, target, indent=4, ensure_ascii=False)
 
 
-def read_json(filename="?????.json"):
-    pass
+def read_json(filename="favorite_movies.json"):
+    with open(filename, 'r') as target:
+        data = json.load(target)
+    return data
     #..........
 
 
