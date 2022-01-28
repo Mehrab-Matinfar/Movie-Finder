@@ -28,6 +28,8 @@ def sendMessage(chat_id, text):
     sendData = {
         'chat_id': chat_id,
         'text': text,
+        'parse_mode': 'MarkdownV2'
+
     }
     response = requests.post(url + 'sendMessage', sendData)
     return response
@@ -79,7 +81,7 @@ def index():
                             "**" + str(my_json['d'][0]['l']) + "**" + "\n" +
                             "year = " + str(my_json['d'][0]['y']) + "\n" +
                             "rank = " + str(my_json['d'][0]['rank']) + "\n" +
-
+                            "Director = " + str(my_json['d'][6]["s"]) + "\n" +
                             my_json['d'][0]['i']['imageUrl'])
                 #requests.post(url + '/sendPhoto?chat_id=' + str(chat_id) + '&&photo=' + my_json['d'][0]['i'][
                     #'imageUrl'] + '&&caption=' + 'massage')
