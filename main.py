@@ -82,7 +82,7 @@ def index():
                     'x-rapidapi-host': "imdb8.p.rapidapi.com",
                     'x-rapidapi-key': "cfd0364257msh4cc69ee1095c46ap16ede2jsn87149799a7da"
                 }
-                response = requests.request("GET", url, headers=headers, params=querystring)
+                response = requests.request("GET", url_imdb, headers=headers, params=querystring)
                 sendMessage(chat_id, response.json())
                 break
         return Response('ok', status=200)
