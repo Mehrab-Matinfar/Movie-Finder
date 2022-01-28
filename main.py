@@ -83,6 +83,8 @@ def index():
                     'x-rapidapi-key': "cfd0364257msh4cc69ee1095c46ap16ede2jsn87149799a7da"
                 }
                 response = requests.request("GET", url_imdb, headers=headers, params=querystring)
+                my_json = response.json()
+                sendMessage(chat_id, my_json['d'][0]['i']['imageUrl'])
                 sendMessage(chat_id, response.json())
                 break
         return Response('ok', status=200)
