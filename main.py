@@ -8,7 +8,7 @@ import os
 
 url = "https://api.telegram.org/bot5030500889:AAH3DqPa8XE5woVZwKbJrFpWXRWHz_5gnNw/"
 url_imdb = "https://imdb8.p.rapidapi.com/auto-complete"
-app = Flask(name)
+app = Flask(__name__)
 
 
 def get_all_updates():
@@ -77,7 +77,7 @@ def index():
                 #requests.post(url + '/sendphoto?chat_id=' + chat_id + '&&photo=' + my_json['d'][0]['i']['imageUrl'] + '&&caption=' + 'massage')
                 #requests.post(url + '/sendPhoto?chat_id=' + str(chat_id) + '&&photo=' + my_json['d'][0]['i']['imageUrl'] + '&&caption=' + 'massage')
                 sendMessage(chat_id,
-                            "" + str(my_json['d'][0]['l']) + "" + "\n" +
+                            "**" + str(my_json['d'][0]['l']) + "**" + "\n" +
                             "year = " + str(my_json['d'][0]['y']) + "\n" +
                             "rank = " + str(my_json['d'][0]['rank']) + "\n" +
                             "Director = " + str(my_json['d'][6]["s"]) + "\n" +
