@@ -39,30 +39,37 @@ def index():
         msg = request.get_json()
         chat_id = get_chat_id(msg)
         text = msg['message'].get('text', '')
-        if text == '/start':
-            sendMessage(chat_id, "Hi, Welcome to Movie Finder!")
-            sendMessage(chat_id, '/list_of_favorit_movies')
-            sendMessage(chat_id, '/search_new_movie')
-        elif text == '/search_new_movie':
-            sendMessage(chat_id, 'Enter the name of movie')
 
-            querystring = {'q': text}
-            headers = {
-                'x-rapidapi-host': "imdb8.p.rapidapi.com",
-                'x-rapidapi-key': "cfd0364257msh4cc69ee1095c46ap16ede2jsn87149799a7da"
-            }
-            response = requests.request("GET", url, headers=headers, params=querystring)
-            sendMessage(chat_id, response.json())
+        while True:
+            if text == '/start':
+                sendMessage(chat_id, "Hi, Welcome to Movie Finder!")
+                sendMessage(chat_id, '/list_of_favorit_movies')
+                sendMessage(chat_id, '/search_new_movie')
+                continue
+            elif text == '/list_of_favorit_movies':
+                favorit_movies = read_json()
+                username = msg['message']['from']['username']
+                if username not in favorit_movies.keys():
+                    sendMessage(chat_id, 'No movie has been selected so far')
+                    continue
+                else:
+                    for movie in favorit_movies[username]:
+                        sendMessage(chat_id, movie)
+                        continue
 
-        elif text == '/list_of_favorit_movies':
-            favorit_movies = read_json()
-            username = msg['message']['from']['username']
-            if username not in favorit_movies.keys():
-                sendMessage(chat_id, 'No movie has been selected so far')
+            elif text == '/search_new_movie':
+                sendMessage(chat_id, 'Enter the name of movie')
+                continue
+            elif text == 'End':
+                break
             else:
-                for movie in favorit_movies[username]:
-                    sendMessage(chat_id, movie)
-
+                querystring = {'q': text}
+                headers = {
+                    'x-rapidapi-host': "imdb8.p.rapidapi.com",
+                    'x-rapidapi-key': "cfd0364257msh4cc69ee1095c46ap16ede2jsn87149799a7da"
+                }
+                response = requests.request("GET", url, headers=headers, params=querystring)
+                sendMessage(chat_id, response.json())
         return Response('ok', status=200)
 
 
@@ -75,7 +82,6 @@ def read_json(filename="favorite_movies.json"):
     with open(filename, 'r') as target:
         data = json.load(target)
     return data
-
 
 
 try:
