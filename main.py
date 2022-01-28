@@ -70,6 +70,7 @@ def index():
                 }
                 response = requests.request("GET", url, headers=headers, params=querystring)
                 sendMessage(chat_id, response.json())
+                break
         return Response('ok', status=200)
 
 
