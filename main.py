@@ -87,7 +87,8 @@ def index():
                 sendMessage(chat_id, my_json['d'][0]['i']['imageUrl'])
                 #requests.post(url + '/sendphoto?chat_id=' + chat_id + '&&photo=' + my_json['d'][0]['i']['imageUrl'] + '&&caption=' + 'massage')
                 #requests.post(url + '/sendPhoto?chat_id=' + str(chat_id) + '&&photo=' + my_json['d'][0]['i']['imageUrl'] + '&&caption=' + 'massage')
-                sendMessage(chat_id, "rank = " + str(my_json['d'][0]['rank']))
+                sendMessage(chat_id, "rank = " + str(my_json['d'][0]['rank']) + "\n" +
+                            my_json['d'][0]['i']['imageUrl'])
                 break
         return Response('ok', status=200)
 
