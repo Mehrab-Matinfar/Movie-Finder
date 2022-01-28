@@ -35,6 +35,9 @@ def sendMessage(chat_id, text):
 
 @app.route('/', methods=['POST', 'GET'])
 def index():
+    list_of_movies = [
+        {"name": "breaking bad", "year": 2012, "genre": "crime"}
+    ]
     if request.method == 'POST':
         msg = request.get_json()
         chat_id = get_chat_id(msg)
@@ -58,7 +61,18 @@ def index():
                         break
 
             elif text == '/search_new_movie':
-                sendMessage(chat_id, 'Enter the name of movie')
+                sendMessage(chat_id, '/year')
+                sendMessage(chat_id, '/genre')
+                break
+            elif text == '/year':
+                for movie in list_of_movies:
+                    if movie["year"] == 2012:  # i don't know what to do!
+                        sendMessage(chat_id, movie["name"])
+                break
+            elif text == '/genre':
+                for movie in list_of_movies:
+                    if movie["genre"] == "comedy":  # i don't know what to do!
+                        sendMessage(chat_id, movie["name"])
                 break
             elif text == 'End':
                 break
