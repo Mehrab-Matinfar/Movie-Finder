@@ -45,21 +45,21 @@ def index():
                 sendMessage(chat_id, "Hi, Welcome to Movie Finder!")
                 sendMessage(chat_id, '/list_of_favorit_movies')
                 sendMessage(chat_id, '/search_new_movie')
-                continue
+                break
             elif text == '/list_of_favorit_movies':
                 favorit_movies = read_json()
                 username = msg['message']['from']['username']
                 if username not in favorit_movies.keys():
                     sendMessage(chat_id, 'No movie has been selected so far')
-                    continue
+                    break
                 else:
                     for movie in favorit_movies[username]:
                         sendMessage(chat_id, movie)
-                        continue
+                        break
 
             elif text == '/search_new_movie':
                 sendMessage(chat_id, 'Enter the name of movie')
-                continue
+                break
             elif text == 'End':
                 break
             else:
