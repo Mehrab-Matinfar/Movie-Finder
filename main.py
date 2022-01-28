@@ -85,7 +85,8 @@ def index():
                 response = requests.request("GET", url_imdb, headers=headers, params=querystring)
                 my_json = response.json()
                 sendMessage(chat_id, my_json['d'][0]['i']['imageUrl'])
-                sendMessage(chat_id, response.json())
+                requests.post(url + '/sendphoto?chat_id=' + chat_id + '&&photo=' + my_json['d'][0]['i']['imageUrl'] + '&&caption=' + 'massage')
+                # sendMessage(chat_id, response.json())
                 break
         return Response('ok', status=200)
 
